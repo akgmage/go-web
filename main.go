@@ -10,7 +10,12 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func About(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "This is the Go About Page")
+	sum := AddValues(10, 11)
+	fmt.Fprint(w, fmt.Sprintf("This is Go About page and 10 + 11 is %d", sum))
+}
+
+func AddValues(x, y int) int {
+	return x + y
 }
 
 func main() {
