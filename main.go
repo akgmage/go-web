@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 	"text/template"
@@ -13,7 +12,7 @@ const portNumber = ":8080"
 
 // Home is the home page handler
 func Home(w http.ResponseWriter, r *http.Request) {
-	
+	renderTemplate(w, "home.page.tmpl")
 }
 
 // About is the about page handler
@@ -40,7 +39,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 func main() {
 	// listens for a request sent by a web browser
 	http.HandleFunc("/", Home)
-	http.HandleFunc("/about", About)
+	//http.HandleFunc("/about", About)
 
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 	// start server to listen for request
