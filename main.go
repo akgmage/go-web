@@ -20,8 +20,10 @@ func About(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "about.page.tmpl")
 }
 
-
+// renderTemplate takes a response writer , name of template, parse it and
+// write it to browser window
 func renderTemplate(w http.ResponseWriter, tmpl string) {
+	// load file from root of application
 	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
 	err := parsedTemplate.Execute(w, nil)
 	if err != nil {
