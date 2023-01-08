@@ -38,8 +38,10 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 // main is the main application function
 func main() {
 	// listens for a request sent by a web browser
-	http.HandleFunc("/", Home)
-	http.HandleFunc("/about", About)
+	
+	http.HandleFunc("/", Home) // register Home handler
+	
+	http.HandleFunc("/about", About) // register About handler
 	
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 	// start server to listen for request
