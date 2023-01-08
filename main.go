@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-var portNumber = ":8080"
+const portNumber = ":8080"
 // Func name starts with Uppercase is visible outside package
 // lowercase it is not
 
@@ -31,7 +31,7 @@ func main() {
 	http.HandleFunc("/", Home)
 	http.HandleFunc("/about", About)
 
-
+	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 	// start server to listen for request
 	_ = http.ListenAndServe(portNumber, nil)
 }
