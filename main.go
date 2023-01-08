@@ -27,11 +27,12 @@ func addValues(x, y int) int {
 }
 
 func Divide(w http.ResponseWriter, r *http.Request) {
-	f, error := divideValues(100.0, 10.0)
+	f, error := divideValues(100.0, 0.0)
 	if error != nil {
 		fmt.Fprintf(w, "cannot divide by zero")
+		return
 	}
-	fmt.Fprintf(w, fmt.Sprintf("%f divided by %f is %f", 100.0, 10.0, f))
+	fmt.Fprintf(w, fmt.Sprintf("%f divided by %f is %f", 100.0, 0.0, f))
 }
 
 func divideValues(x, y float32) (float32, error) {
