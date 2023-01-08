@@ -17,7 +17,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 // About is the about page handler
 func About(w http.ResponseWriter, r *http.Request) {
-
+	renderTemplate(w, "about.page.tmpl")
 }
 
 
@@ -39,8 +39,8 @@ func renderTemplate(w http.ResponseWriter, tmpl string) {
 func main() {
 	// listens for a request sent by a web browser
 	http.HandleFunc("/", Home)
-	//http.HandleFunc("/about", About)
-
+	http.HandleFunc("/about", About)
+	
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 	// start server to listen for request
 	_ = http.ListenAndServe(portNumber, nil)
