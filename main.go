@@ -18,10 +18,12 @@ func About(w http.ResponseWriter, r *http.Request) {
 	_, _ = fmt.Fprint(w, fmt.Sprintf("This is Go About page and 10 + 11 is %d", sum))
 }
 
+// addValues adds two integers and returns the sum
 func addValues(x, y int) int {
 	return x + y
 }
 
+// main is the main application function
 func main() {
 	// listens for a request sent by a web browser
 	http.HandleFunc("/", Home)
