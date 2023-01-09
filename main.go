@@ -10,10 +10,6 @@ const portNumber = ":8080"
 // lowercase it is not
 
 
-
-
-
-
 // main is the main application function
 func main() {
 	// listens for a request sent by a web browser
