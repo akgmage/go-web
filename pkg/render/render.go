@@ -10,7 +10,7 @@ import (
 // write it to browser window
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// load file from root of application
-	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
+	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl, "./templates/base.layout.tmpl")
 	err := parsedTemplate.Execute(w, nil)
 	if err != nil {
 		fmt.Println("Error parsing template:", err)
