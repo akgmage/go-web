@@ -9,6 +9,11 @@ import (
 
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
+
+// When someone visit site and look at our page, this function RenderTemplate2
+// every single time reads from disk (layout file) and actual template we want to render
+// Read from disk, then parsed and stored in variable which is not every effecient reading
+// from disk on every single request.
 func RenderTemplate2(w http.ResponseWriter, tmpl string) {
 	// load file from root of application
 	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl, "./templates/base.layout.tmpl") // include base layout template
@@ -23,6 +28,7 @@ var tc = make(map[string]*template.Template)
 
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
+//
 func RenderTemplate(w http.ResponseWriter, t string) {
 	var tmpl *template.Template
 	var err error
