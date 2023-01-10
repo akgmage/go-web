@@ -9,7 +9,7 @@ import (
 
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate2(w http.ResponseWriter, tmpl string) {
 	// load file from root of application
 	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl, "./templates/base.layout.tmpl") // include base layout template
 	err := parsedTemplate.Execute(w, nil)
@@ -22,13 +22,14 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 var tc = make(map[string]*template.Template)
 
-func RenderTempalte2(w http.ResponseWriter, t string) {
+func RenderTemplate(w http.ResponseWriter, t string) {
 	var tmpl *template.Template
 	var err error
 
 	_, inMap := tc[t]
 	if !inMap {
 		// create the template
+		log.Println("Creating template and adding to cache")
 		err = createTemplateCache(t)
 		if err != nil {
 			log.Println(err)
