@@ -28,7 +28,7 @@ var tc = make(map[string]*template.Template)
 
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
-//
+// Build a Simple template cache
 func RenderTemplate(w http.ResponseWriter, t string) {
 	var tmpl *template.Template
 	var err error
