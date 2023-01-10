@@ -55,6 +55,7 @@ func RenderTemplate(w http.ResponseWriter, t string) {
 	}
 }
 
+// createTemplateCache parse all required files for an individual template and puts template into cache
 func createTemplateCache(t string) error {
 	// parse all required files for an individual template
 	templates := []string{
