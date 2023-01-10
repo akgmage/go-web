@@ -39,6 +39,7 @@ func RenderTemplate(w http.ResponseWriter, t string) {
 		// not in map(cache) create the template
 		log.Println("Creating template and adding to cache")
 		err = createTemplateCache(t)
+		// check for error
 		if err != nil {
 			log.Println(err)
 		}
@@ -48,23 +49,26 @@ func RenderTemplate(w http.ResponseWriter, t string) {
 	}
 	tmpl = tc[t]
 	err = tmpl.Execute(w, nil)
+	// check for error
 	if err != nil {
 		log.Println(err)
 	}
 }
 
 func createTemplateCache(t string) error {
+	// parse all required files for an individual template
 	templates := []string{
 		fmt.Sprintf("./templates/%s", t),
 		"./templates/base.layout.tmpl",
 	}
 
-	// parse the template
+	// parse the template (take each entry from slice of strings (templates) and put them in as individual strings)
 	tmpl, err := template.ParseFiles(templates...)
+	// check for error
 	if err != nil {
 		return err
 	}
-	// add template to cache
+	// add template to map (cache)
 	tc[t] = tmpl
 	return nil
 }
