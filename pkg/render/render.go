@@ -42,24 +42,32 @@ func createTemplateCache() (map[string]*template.Template, error) {
 
 	// range through all the files ending with *.page.tmpl
 	for _, page := range pages {
-		name := filepath.Base(page) 
-		ts, err := template.New(name).ParseFiles(page)
-		if err != nil {
+		name := filepath.Base(page) // get filename
+		ts, err := template.New(name).ParseFiles(page) // parse the file and store template 
+		if err != nil { // error check
 			return myCache, err
 		}
+		// look for any layouts that exists in that directory
 		matches, err := filepath.Glob("./templates/*.layout.tmpl")
-		if err != nil {
+		if err != nil { // error check
 			return myCache, err
 		}
+		// deal with templates if there are matches
 		if len(matches) > 0 {
+			// ParseGlob parses the template definitions in the files 
+			// identified by the pattern and associates the resulting 
+			// templates with t in our case ts
+			// some of the files that end in page.tmpl might require layout files down here
+			// so parse those and add them to template set
 			ts, err = ts.ParseGlob("./templates/*.layout.tmpl")
-			if err != nil {
+			if err != nil { // error check
 				return myCache, err
 			}
 		}
 		myCache[name] = ts
 	}	
-		return myCache, nil
+
+	return myCache, nil
 }
 
 
