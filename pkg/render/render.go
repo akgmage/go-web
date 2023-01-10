@@ -14,6 +14,12 @@ import (
 // Read from disk, then parsed and stored in variable which is not every effecient reading
 // from disk on every single request.
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
+	// create a template cache
+
+	// get the requested template from cache
+
+	// render the template
+
 	// load file from root of application
 	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl, "./templates/base.layout.tmpl") // include base layout template
 	err := parsedTemplate.Execute(w, nil)
@@ -23,6 +29,10 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	}
 }
 
+func createTemplateCache() (map[string]*template.Template, error) {
+	// myCache := make(map[string]*template.Template)
+	myCache := map[string]*template.Template{}
+}
 
 
 
