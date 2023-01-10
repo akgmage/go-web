@@ -11,10 +11,9 @@ import (
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
 
-// When someone visit site and look at our page, this function RenderTemplate2
-// every single time reads from disk (layout file) and actual template we want to render
-// Read from disk, then parsed and stored in variable which is not every effecient reading
-// from disk on every single request.
+// Advantage over old implementation is we no longer have top keep track
+// of how many files are in templates directory and how many are using particular extension.page.tmpl or layout.page.tmpl
+// 
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// create a template cache
 	tc, err := createTemplateCache()
@@ -36,7 +35,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		log.Println(err)
 	}
 
-	// render the template by writing to ResponseWriter
+	// render the template by writing to  writer
 	_, err = buff.WriteTo(w)
 	if err != nil {
 		log.Println(err)
