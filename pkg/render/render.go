@@ -2,7 +2,6 @@ package render
 
 import (
 	"bytes"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -37,8 +36,11 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		log.Println(err)
 	}
 
-	// render the template
-
+	// render the template by writing to ResponseWriter
+	_, err = buff.WriteTo(w)
+	if err != nil {
+		log.Println(err)
+	}
 	
 }
 
