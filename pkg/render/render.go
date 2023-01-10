@@ -29,7 +29,8 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		log.Fatal(err)
 	}
 
-	buff := new(bytes.Buffer) // hold bytes
+	// hold bytes, try to execute the value we got from map and write it out for error checking
+	buff := new(bytes.Buffer) 
 	
 	err = t.Execute(buff, nil)
 	if err != nil {
