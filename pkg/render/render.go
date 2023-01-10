@@ -21,9 +21,12 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	// get the requested template from cache
 
+	// get the requested template from cache
+	t, ok := tc[tmpl]
+	if !ok {
+		log.Fatal(err)
+	}
 	// render the template
 
 	// load file from root of application
