@@ -1,8 +1,9 @@
 package render
 
 import (
-	"fmt"
+	"bytes"
 	"html/template"
+	"log"
 	"net/http"
 	"path/filepath"
 )
@@ -10,24 +11,37 @@ import (
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
 
-// When someone visit site and look at our page, this function RenderTemplate2
-// every single time reads from disk (layout file) and actual template we want to render
-// Read from disk, then parsed and stored in variable which is not every effecient reading
-// from disk on every single request.
+// Advantage over old implementation is we no longer have top keep track
+// of how many files are in templates directory and how many are using particular extension.page.tmpl or layout.page.tmpl
+// Reading all of required files from disk, parsing them, putting them in a map
+// pulling the value out of the map and then rendering it 
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// create a template cache
-	
-	// get the requested template from cache
-
-	// render the template
-
-	// load file from root of application
-	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl, "./templates/base.layout.tmpl") // include base layout template
-	err := parsedTemplate.Execute(w, nil)
+	tc, err := createTemplateCache()
 	if err != nil {
-		fmt.Println("Error parsing template:", err)
-		return
+		log.Fatal(err)
 	}
+
+	// get the requested template from cache
+	t, ok := tc[tmpl]
+	if !ok {
+		log.Fatal(err)
+	}
+
+	// hold bytes, try to execute the value we got from map and write it out for error checking
+	buff := new(bytes.Buffer) 
+	
+	err = t.Execute(buff, nil)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// render the template by writing to  writer
+	_, err = buff.WriteTo(w)
+	if err != nil {
+		log.Println(err)
+	}
+	
 }
 
 func createTemplateCache() (map[string]*template.Template, error) {
