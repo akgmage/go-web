@@ -3,6 +3,7 @@ package render
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -28,11 +29,18 @@ func RenderTempalte2(w http.ResponseWriter, t string) {
 	_, inMap := tc[t]
 	if !inMap {
 		// create the template
+		err = createTemplateCache(t)
+		if err != nil {
+			log.Println(err)
+		}
 	} else {
 		log.Println("Using cached template")
 	}
 	tmpl = tc[t]
 	err = tmpl.Execute(w, nil)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func createTemplateCache(t string) error {
