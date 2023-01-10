@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"path/filepath"
 )
 
 // renderTemplate takes a response writer , name of template, parse it and
@@ -32,6 +33,13 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 func createTemplateCache() (map[string]*template.Template, error) {
 	// myCache := make(map[string]*template.Template)
 	myCache := map[string]*template.Template{}
+
+	// get all of the files named *.page.tmpl from ./templates
+	pages, err := filepath.Glob("./templates/*.page.tmpl")
+	if err != nil {
+		return myCache, err
+	}
+
 }
 
 
