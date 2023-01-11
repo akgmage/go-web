@@ -30,6 +30,7 @@ func main() {
 
 	repo := handlers.NewRepo(&app)
 	handlers.Newhandlers(repo)
+	
 	// give render package access to app config
 	render.NewTemplates(&app)
 
