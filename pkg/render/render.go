@@ -14,10 +14,10 @@ import (
 // Advantage over old implementation is we no longer have top keep track
 // of how many files are in templates directory and how many are using particular extension.page.tmpl or layout.page.tmpl
 // Reading all of required files from disk, parsing them, putting them in a map
-// pulling the value out of the map and then rendering it 
+// pulling the value out of the map and then rendering it
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// create a template cache
-	tc, err := createTemplateCache()
+	tc, err := CreateTemplateCache()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -44,7 +44,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	
 }
 
-func createTemplateCache() (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	// myCache := make(map[string]*template.Template)
 	myCache := map[string]*template.Template{}
 
