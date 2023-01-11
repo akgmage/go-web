@@ -6,7 +6,19 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/akgmage/go-web/pkg/config"
 )
+
+var functions = template.FuncMap{
+
+}
+var app *config.AppConfig
+
+// NewTemplates sets the config for the template package
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
 
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
@@ -14,24 +26,22 @@ import (
 // Advantage over old implementation is we no longer have top keep track
 // of how many files are in templates directory and how many are using particular extension.page.tmpl or layout.page.tmpl
 // Reading all of required files from disk, parsing them, putting them in a map
-// pulling the value out of the map and then rendering it 
+// pulling the value out of the map and then rendering it
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	// create a template cache
-	tc, err := createTemplateCache()
-	if err != nil {
-		log.Fatal(err)
-	}
+
+	// get tempalte cache from appconfig
+	tc := app.TemplateCache
 
 	// get the requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	// hold bytes, try to execute the value we got from map and write it out for error checking
 	buff := new(bytes.Buffer) 
 	
-	err = t.Execute(buff, nil)
+	err := t.Execute(buff, nil)
 	if err != nil {
 		log.Println(err)
 	}
@@ -44,7 +54,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	
 }
 
-func createTemplateCache() (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	// myCache := make(map[string]*template.Template)
 	myCache := map[string]*template.Template{}
 
