@@ -30,7 +30,6 @@ func NewTemplates(a *config.AppConfig) {
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	// get tempalte cache from appconfig
-	config.
 
 
 	// create a template cache
