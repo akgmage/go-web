@@ -6,7 +6,19 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/akgmage/go-web/pkg/config"
 )
+
+var functions = tempalte.FuncMap{
+
+}
+var app *config.AppConfig
+
+// NewTemplates sets the config for the template package
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
 
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
@@ -16,6 +28,11 @@ import (
 // Reading all of required files from disk, parsing them, putting them in a map
 // pulling the value out of the map and then rendering it
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
+
+	// get tempalte cache from appconfig
+	config.
+
+
 	// create a template cache
 	tc, err := CreateTemplateCache()
 	if err != nil {
