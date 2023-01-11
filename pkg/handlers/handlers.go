@@ -1,9 +1,16 @@
 package handlers
 
 import (
-	"github.com/akgmage/go-web/pkg/render"
 	"net/http"
+
+	"github.com/akgmage/go-web/pkg/config"
+	"github.com/akgmage/go-web/pkg/render"
 )
+
+var Repo *Repository
+type Repository struct {
+	App *config.AppConfig
+}
 
 // Home is the home page handler
 func Home(w http.ResponseWriter, r *http.Request) {

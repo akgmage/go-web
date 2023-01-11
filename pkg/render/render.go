@@ -32,8 +32,6 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// get tempalte cache from appconfig
 	tc := app.TemplateCache
 
-	
-
 	// get the requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
