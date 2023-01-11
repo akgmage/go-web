@@ -10,7 +10,7 @@ import (
 	"github.com/akgmage/go-web/pkg/config"
 )
 
-var functions = tempalte.FuncMap{
+var functions = template.FuncMap{
 
 }
 var app *config.AppConfig
@@ -30,24 +30,20 @@ func NewTemplates(a *config.AppConfig) {
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	// get tempalte cache from appconfig
+	tc := app.TemplateCache
 
-
-	// create a template cache
-	tc, err := CreateTemplateCache()
-	if err != nil {
-		log.Fatal(err)
-	}
+	
 
 	// get the requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Fatal(err)
+		log.Fatal("Could not get template from template cache")
 	}
 
 	// hold bytes, try to execute the value we got from map and write it out for error checking
 	buff := new(bytes.Buffer) 
 	
-	err = t.Execute(buff, nil)
+	err := t.Execute(buff, nil)
 	if err != nil {
 		log.Println(err)
 	}
