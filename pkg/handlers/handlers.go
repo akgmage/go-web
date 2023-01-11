@@ -7,15 +7,23 @@ import (
 	"github.com/akgmage/go-web/pkg/render"
 )
 
+// Repo the repository used by the handlers
 var Repo *Repository
+// Repository is a repository type
 type Repository struct {
 	App *config.AppConfig
 }
 
+// NewRepo creates a new repository
 func NewRepo(a *config.AppConfig) *Repository {
 	return &Repository{
 		App: a,
 	}
+}
+
+// NewHandlers sets the repository for the handlers
+func Newhandlers(r *Repository) {
+	Repo = r
 }
 
 // Home is the home page handler
