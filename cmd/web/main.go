@@ -7,6 +7,7 @@ import (
 
 	"github.com/akgmage/go-web/pkg/config"
 	"github.com/akgmage/go-web/pkg/handlers"
+	"github.com/akgmage/go-web/pkg/render"
 )
 
 const portNumber = ":8080"
@@ -19,11 +20,16 @@ func main() {
 
 	var app config.AppConfig
 
-	tc, err := render.createTemplateCache()
+	tc, err := render.CreateTemplateCache()
+	
 	if err != nil {
 		log.Fatal("cannot create template cache")
 	}
 
+	app.TemplateCache = tc
+
+	// give render package access to app config
+	render.NewTemplates(&app)
 
 	// listens for a request sent by a web browser
 	
