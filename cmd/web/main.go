@@ -27,15 +27,19 @@ func main() {
 	}
 
 	app.TemplateCache = tc
+	app.UseCache = false
+
+	repo := handlers.NewRepo(&app)
+	handlers.Newhandlers(repo)
 
 	// give render package access to app config
 	render.NewTemplates(&app)
 
 	// listens for a request sent by a web browser
 	
-	http.HandleFunc("/", handlers.Home) // register Home handler
+	http.HandleFunc("/", handlers.Repo.Home) // register Home handler
 	
-	http.HandleFunc("/about", handlers.About) // register About handler
+	http.HandleFunc("/about", handlers.Repo.About) // register About handler
 	
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 	// start server to listen for request
