@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/akgmage/go-web/pkg/config"
+	"github.com/akgmage/go-web/pkg/handlers"
 )
 
 var functions = template.FuncMap{
@@ -27,7 +28,7 @@ func NewTemplates(a *config.AppConfig) {
 // of how many files are in templates directory and how many are using particular extension.page.tmpl or layout.page.tmpl
 // Reading all of required files from disk, parsing them, putting them in a map
 // pulling the value out of the map and then rendering it
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td handlers.TemplateData) {
 	var tc map[string]*template.Template
 	// read info from template cache if UseCache is true
 	if app.UseCache {
