@@ -21,8 +21,8 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
+// AddDefaultData takes template data and returns it
 func AddDefaultData(td *models.TemplateData) *models.TemplateData {
-
 	return td
 }
 
