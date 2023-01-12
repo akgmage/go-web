@@ -4,20 +4,9 @@ import (
 	"net/http"
 
 	"github.com/akgmage/go-web/pkg/config"
+	"github.com/akgmage/go-web/pkg/models"
 	"github.com/akgmage/go-web/pkg/render"
 )
-
-// TemplateData holds data sent from handlers to templates
-type TemplateData struct {
-	StringMap map[string]string
-	IntMap 	map[string]int
-	FloatMap map[string]float32
-	Data map[string]interface{}
-	CSRFToken string
-	Flash string
-	Warning string
-	Error string
-}
 
 // Repo the repository used by the handlers
 var Repo *Repository
@@ -41,7 +30,7 @@ func Newhandlers(r *Repository) {
 // Home is the home page handler
 // (m *Repository) with this receiver we have access to everything inside Repository i.e application config
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home.page.tmpl", &TemplateData{})
+	render.RenderTemplate(w, "home.page.tmpl", &models.TemplateData{})
 }
 
 // About is the about page handler
@@ -51,7 +40,9 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 	stringMap["test"] = "Hello, again."
 	// send data to the template
 
-	render.RenderTemplate(w, "about.page.tmpl", &TemplateData{StringMap: stringMap})
+	render.RenderTemplate(w, "about.page.tmpl",  &models.TemplateData{
+		StringMap: stringMap,
+	})
 }
 
 
