@@ -35,20 +35,16 @@ func main() {
 	// give render package access to app config
 	render.NewTemplates(&app)
 
-	// listens for a request sent by a web browser
-	
-	// http.HandleFunc("/", handlers.Repo.Home) // register Home handler
-	
-	// http.HandleFunc("/about", handlers.Repo.About) // register About handler
-	
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
-	// start server to listen for request
-	// _ = http.ListenAndServe(portNumber, nil)
+	
+
 
 	srv := &http.Server{
 		Addr: portNumber,
 		Handler: routes(&app),
 	}
+	
+	// start server to listen for request
 	err = srv.ListenAndServe()
 	log.Fatal(err)
 }
