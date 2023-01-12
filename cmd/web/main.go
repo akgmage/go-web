@@ -37,11 +37,18 @@ func main() {
 
 	// listens for a request sent by a web browser
 	
-	http.HandleFunc("/", handlers.Repo.Home) // register Home handler
+	// http.HandleFunc("/", handlers.Repo.Home) // register Home handler
 	
-	http.HandleFunc("/about", handlers.Repo.About) // register About handler
+	// http.HandleFunc("/about", handlers.Repo.About) // register About handler
 	
 	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 	// start server to listen for request
-	_ = http.ListenAndServe(portNumber, nil)
+	// _ = http.ListenAndServe(portNumber, nil)
+
+	srv := &http.Server{
+		Addr: portNumber,
+		Handler: routes(&app),
+	}
+	err = srv.ListenAndServe()
+	log.Fatal(err)
 }
