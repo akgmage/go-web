@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/akgmage/go-web/pkg/config"
+	"github.com/akgmage/go-web/pkg/models"
 )
 
 var functions = template.FuncMap{
@@ -20,6 +21,11 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+
+	return td
+}
+
 // renderTemplate takes a response writer , name of template, parse it and
 // write it to browser window
 
@@ -27,7 +33,7 @@ func NewTemplates(a *config.AppConfig) {
 // of how many files are in templates directory and how many are using particular extension.page.tmpl or layout.page.tmpl
 // Reading all of required files from disk, parsing them, putting them in a map
 // pulling the value out of the map and then rendering it
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 	// read info from template cache if UseCache is true
 	if app.UseCache {
@@ -38,8 +44,6 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		tc, _ = CreateTemplateCache()
 	}
 	
-
-	
 	// get the requested template from cache
 	t, ok := tc[tmpl]
 	if !ok {
@@ -48,8 +52,11 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	// hold bytes, try to execute the value we got from map and write it out for error checking
 	buff := new(bytes.Buffer) 
+
+	td = AddDefaultData(td)
 	
-	err := t.Execute(buff, nil)
+	err := t.Execute(buff, td)
+	
 	if err != nil {
 		log.Println(err)
 	}
