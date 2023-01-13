@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// WriteToConsole writes to console and moves to next middleware 
 func WriteToConsole(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("hit the page")
