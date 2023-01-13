@@ -28,6 +28,7 @@ func main() {
 	// (i.e. whether it should be retained after a user closes their browser
 	session.Cookie.Persist = true
 	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = false // set to true in production
 
 	tc, err := render.CreateTemplateCache()
 	
