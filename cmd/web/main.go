@@ -24,6 +24,9 @@ func main() {
 
 	session := scs.New()
 	session.Lifetime = 24 * time.Hour
+	// Persist sets whether the session cookie should be persistent or not 
+	// (i.e. whether it should be retained after a user closes their browser
+	session.Cookie.Persist = true
 
 	tc, err := render.CreateTemplateCache()
 	
