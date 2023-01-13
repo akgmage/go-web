@@ -27,6 +27,7 @@ func main() {
 	// Persist sets whether the session cookie should be persistent or not 
 	// (i.e. whether it should be retained after a user closes their browser
 	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
 
 	tc, err := render.CreateTemplateCache()
 	
