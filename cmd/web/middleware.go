@@ -15,6 +15,7 @@ func WriteToConsole(next http.Handler) http.Handler {
 	})
 }
 
+// NoSurf Sets the base cookie to use when building a CSRF token cookie
 func NoSurf(next http.Handler) http.Handler {
 	csrfhandler := nosurf.New(next)
 
@@ -24,4 +25,5 @@ func NoSurf(next http.Handler) http.Handler {
 		Secure: false,
 		SameSite: http.SameSiteLaxMode,
 	})
+	return csrfhandler
 }

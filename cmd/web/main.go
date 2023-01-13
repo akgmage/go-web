@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/akgmage/go-web/pkg/config"
 	"github.com/akgmage/go-web/pkg/handlers"
 	"github.com/akgmage/go-web/pkg/render"
+	"github.com/alexedwards/scs/v2"
 )
 
 const portNumber = ":8080"
@@ -19,6 +21,14 @@ const portNumber = ":8080"
 func main() {
 
 	var app config.AppConfig
+
+	session := scs.New()
+	session.Lifetime = 24 * time.Hour
+	// Persist sets whether the session cookie should be persistent or not 
+	// (i.e. whether it should be retained after a user closes their browser
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = false // set to true in production
 
 	tc, err := render.CreateTemplateCache()
 	
