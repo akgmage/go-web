@@ -14,6 +14,8 @@ import (
 
 const portNumber = ":8080"
 var app config.AppConfig
+
+var session *scs.SessionManager
 // Func name starts with Uppercase is visible outside package
 // lowercase it is not
 
@@ -25,7 +27,7 @@ func main() {
 
 	app.InProduction = false
 
-	session := scs.New()
+	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	// Persist sets whether the session cookie should be persistent or not 
 	// (i.e. whether it should be retained after a user closes their browser
@@ -33,6 +35,8 @@ func main() {
 	session.Cookie.SameSite = http.SameSiteLaxMode
 	session.Cookie.Secure = app.InProduction 
 
+	app.Session = session
+		
 	tc, err := render.CreateTemplateCache()
 	
 	if err != nil {
